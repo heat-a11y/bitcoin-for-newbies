@@ -22,11 +22,13 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Grant execute permission to Gradle wrapper
-        run: chmod +x gradlew
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug --no-daemon
+        run: ./gradlew assembleDebug
+        env:
+          GRADLE_OPTS: -Dorg.gradle.daemon=false
 
       - name: Upload APK as build artifact
         uses: actions/upload-artifact@v4
