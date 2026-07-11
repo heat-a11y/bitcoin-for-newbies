@@ -1,139 +1,137 @@
-<!-- 4x2 Bitcoin Widget Layout – Material 3 / Material You -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/widget_background"
-    android:padding="12dp">
+    android:background="#FF1A1A2E"
+    android:padding="20dp"
+    android:gravity="center_horizontal">
 
-    <!-- Top row: TextClock (digital clock, HH:mm) -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bitcoin Widget"
+        android:textSize="26sp"
+        android:textColor="#FFFFFFFF"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="32dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/metric_card_bg"
-        android:padding="12dp">
+        android:weightSum="3"
+        android:padding="4dp">
 
-        <TextClock
-            android:id="@+id/clock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:format24Hour="HH:mm"
-            android:format12Hour="hh:mm a"
-            android:textSize="48sp"
-            android:textColor="#FFFFFFFF"
-            android:fontFamily="sans-serif-medium"
-            android:lineSpacingExtra="0sp" />
-
-    </LinearLayout>
-
-    <!-- Bottom row: 3 metric cards in a grid -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        android:weightSum="3">
-
-        <!-- Bitcoin Price -->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@drawable/metric_card_bg"
-            android:padding="8dp"
+            android:background="#33FFFFFF"
+            android:padding="12dp"
             android:layout_marginEnd="4dp">
 
             <TextView
-                android:id="@+id/label_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PRICE"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textColor="#99FFFFFF"
                 android:textAllCaps="true" />
 
             <TextView
-                android:id="@+id/value_price"
+                android:id="@+id/activity_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="$ --,---"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textColor="#FFFFFFFF"
                 android:fontFamily="sans-serif-medium"
-                android:layout_marginTop="2dp" />
+                android:layout_marginTop="4dp" />
 
         </LinearLayout>
 
-        <!-- Block Number -->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@drawable/metric_card_bg"
-            android:padding="8dp"
-            android:layout_marginHorizontal="2dp">
+            android:background="#33FFFFFF"
+            android:padding="12dp"
+            android:layout_marginHorizontal="4dp">
 
             <TextView
-                android:id="@+id/label_block"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="BLOCK"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textColor="#99FFFFFF"
                 android:textAllCaps="true" />
 
             <TextView
-                android:id="@+id/value_block"
+                android:id="@+id/activity_block"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="---,---"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textColor="#FFFFFFFF"
                 android:fontFamily="sans-serif-medium"
-                android:layout_marginTop="2dp" />
+                android:layout_marginTop="4dp" />
 
         </LinearLayout>
 
-        <!-- Network Hashrate -->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@drawable/metric_card_bg"
-            android:padding="8dp"
+            android:background="#33FFFFFF"
+            android:padding="12dp"
             android:layout_marginStart="4dp">
 
             <TextView
-                android:id="@+id/label_hashrate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="HASHRATE"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textColor="#99FFFFFF"
                 android:textAllCaps="true" />
 
             <TextView
-                android:id="@+id/value_hashrate"
+                android:id="@+id/activity_hashrate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="--- EH/s"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textColor="#FFFFFFFF"
                 android:fontFamily="sans-serif-medium"
-                android:layout_marginTop="2dp" />
+                android:layout_marginTop="4dp" />
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/activity_last_updated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last updated: --"
+        android:textSize="12sp"
+        android:textColor="#66FFFFFF"
+        android:layout_marginTop="24dp" />
+
+    <Button
+        android:id="@+id/btn_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REFRESH"
+        android:textColor="#FF1A1A2E"
+        android:backgroundTint="#FFFFD700"
+        android:layout_marginTop="16dp"
+        android:paddingHorizontal="32dp" />
 
 </LinearLayout>

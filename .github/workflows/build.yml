@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Check out repository
@@ -23,15 +23,28 @@ jobs:
           java-version: 17
 
       - name: Set up Android SDK
-        shell: bash
         run: |
-          echo "ANDROID_HOME=$ANDROID_HOME"
-          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
-          ls -la "$ANDROID_HOME/" || ls -la "$ANDROID_SDK_ROOT/"
-          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses 2>/dev/null || \
-          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --licenses 2>/dev/null || true
-          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" 2>/dev/null || \
-          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" 2>/dev/null || true
+          SDK_ROOT="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          echo "SDK_ROOT=$SDK_ROOT"
+
+          # Accept all SDK licenses
+          yes | "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --licenses \
+            || yes | "$SDK_ROOT/tools/bin/sdkmanager" --licenses \
+            || echo "WARN: could not accept licenses"
+
+          # Install required platform + build-tools
+          yes | "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" \
+            "platforms;android-35" \
+            "build-tools;35.0.0" 2>&1 \
+            || yes | "$SDK_ROOT/tools/bin/sdkmanager" \
+              "platforms;android-35" \
+              "build-tools;35.0.0" 2>&1 \
+            || echo "WARN: sdkmanager install failed"
+
+          echo "--- Installed SDK packages ---"
+          "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --list --include_installed 2>/dev/null \
+            || "$SDK_ROOT/tools/bin/sdkmanager" --list --include_installed 2>/dev/null \
+            || true
 
       - name: Generate Gradle Wrapper
         uses: gradle/actions/setup-gradle@v4
